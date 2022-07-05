@@ -13,23 +13,53 @@ const App = () => {
         if (isFinished===false) {
             setPlayerChoice(parseInt(e.target.alt))
             setPlayerChoiceIsDisplayed(true)
-            setAIChoiceIsDiplayed(true)
-            // console.log(e);
-            
+            setAIChoiceIsDiplayed(true)            
             // AI selection
             let random = Math.ceil((Math.random() * 3));
             setAIChoice(random);
+            // Result
             if (AIChoice === 1) {
               if (playerChoice === 1) {
-                console.log("both are one")
+                setResult("It's a tie! Try again.")
+                setIsFinished(false)
               }
               if (playerChoice === 2) {
-                console.log("both are two")
+                setResult("You lose!!!")
+                setIsFinished(true)
               }
               if (playerChoice === 3) {
-                console.log("both are three")
+                setResult("You win!!!")
+                setIsFinished(true)
               }
               
+            }
+            if (AIChoice === 2) {
+                if (playerChoice === 1) {
+                    setResult("You win!!!")
+                    setIsFinished(true)
+                }
+                if (playerChoice === 2) {
+                    setResult("It's a tie! Try again.")
+                    setIsFinished(false)
+                }
+                if (playerChoice === 3) {
+                    setResult("You lose!!!")
+                    setIsFinished(true)
+                }
+            }
+            if (AIChoice === 3) {
+                if (playerChoice === 1) {
+                    setResult("You lose!!!")
+                    setIsFinished(true)
+                }
+                if (playerChoice === 2) {
+                    setResult("You win!!!")
+                    setIsFinished(true)
+                }
+                if (playerChoice === 3) {
+                    setResult("It's a tie! Try again.")
+                    setIsFinished(false)
+                }
             }
             
         }
@@ -37,72 +67,6 @@ const App = () => {
             return;
         }
     }
-
-    // const handleResult = () => {
-    //   console.log("click")
-    //   console.log(AIChoice,playerChoice);
-    //   // if (AIChoice === 1 && playerChoice === 1) {
-    //   //   setResult("It's a tie.TRY AGAIN!!!")
-    //   //   setIsFinished(false)
-    //   // }
-
-    //   switch (AIChoice) {
-    //     //paper
-    //     case (AIChoice === 1) : 
-    //     switch (playerChoice) {
-    //         case (playerChoice === 1) :
-    //           setResult("1")
-    //           setIsFinished(false)
-    //         break;
-    //         case (playerChoice === 2) :
-    //           setResult("2")
-    //           setIsFinished(false)
-    //         break;
-    //         case (playerChoice === 3) :
-    //         setResult("3")
-    //         setIsFinished(false)
-    //       break;  
-    //     }
-
-    //       // break;
-    //     // case (AIChoice === 1 && playerChoice === 2) :
-    //     //      setResult("You lose!!!")
-    //     //      setIsFinished(true)
-    //     //   break;
-    //     // case (AIChoice === 1 && playerChoice === 3) :
-    //     //      setResult("You win!!!")
-    //     //      setIsFinished(true)
-    //     //   break;
-    //     // //rock  
-    //     // case (AIChoice === 2 && playerChoice === 1) :
-    //     //      setResult("You win!!!")
-    //     //      setIsFinished(true)
-    //     //   break;
-    //     // case (AIChoice === 2 && playerChoice === 2) :
-    //     //     setResult("It's a tie.TRY AGAIN!!!")
-    //     //     setIsFinished(false)
-    //     //   break;
-    //     // case (AIChoice === 2 && playerChoice === 3) :
-    //     //     setResult("You lose!!!")
-    //     //     setIsFinished(true)
-    //     //   break;
-    //     // //scissors
-    //     // case (AIChoice === 3 && playerChoice === 1) :
-    //     //     setResult("You lose!!!")
-    //     //     setIsFinished(true)
-    //     //   break;
-    //     // case (AIChoice === 3 && playerChoice === 2) :
-    //     //     setResult("You win!!!")
-    //     //     setIsFinished(true)
-    //     //   break;
-    //     // case (AIChoice === 3 && playerChoice === 3) :
-    //     //     setResult("It's a tie.TRY AGAIN!!!")
-    //     //     setIsFinished(false)         
-    //     //   break;           
-    //      default:
-   
-    //    }
-    // }
 
     const refresh = () => {
         setPlayerChoice("")
@@ -118,10 +82,10 @@ const App = () => {
                {AIChoiceIsDiplayed && <img src={`img/${AIChoice}.png`} alt="AI's choice"/>}
            </div>
            <div>
-               {playerChoiceIsDisplayed && <img src={`img/${playerChoice}.png`}/>}
+               {playerChoiceIsDisplayed && <img src={`img/${playerChoice}.png`} alt="Player's choice"/>}
            </div>
            <div className="result">
-            <p>{result}</p>
+            {playerChoice && <p>{result}</p>}
            </div>
            <div className="button-container">
                <img src="img/2.png" onClick={(event) => handleClick(event)} alt="2"/>
@@ -129,7 +93,6 @@ const App = () => {
                <img src="img/3.png" onClick={(event) => handleClick(event)} alt="3"/>
            </div>
            <button onClick={refresh}>Refresh</button>
-           {/* <button onClick={handleResult}>See the results</button> */}
        </div>
     );
 }
